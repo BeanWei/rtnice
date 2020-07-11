@@ -1,0 +1,45 @@
+{
+  "name": "rtnice",
+  "description": "RichText Nice",
+  "version": "0.0.1",
+  "author": "BeanWei",
+  "main": "lib/rtnice.cjs.js",
+  "module": "lib/rtnice.es.js",
+  "jsnext:main": "lib/rtnice.es.js",
+  "browser": {
+    "jsdom": false
+  },
+  "dependencies": {
+    "jsdom": "^16.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-replace": "^2.3.1",
+    "browserify": "^16.2.3",
+    "rollup": "^1.32.0",
+    "standard": "^10.0.3"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "keywords": [
+    "converter",
+    "html",
+    "typesetting"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeanWei/rtnice.git"
+  },
+  "scripts": {
+    "build": "npm run build-cjs && npm run build-es && npm run build-umd && npm run build-iife",
+    "build-cjs": "rollup -c config/rollup.config.cjs.js && rollup -c config/rollup.config.browser.cjs.js",
+    "build-es": "rollup -c config/rollup.config.es.js && rollup -c config/rollup.config.browser.es.js",
+    "build-umd": "rollup -c config/rollup.config.umd.js && rollup -c config/rollup.config.browser.umd.js",
+    "build-iife": "rollup -c config/rollup.config.iife.js",
+    "prepublish": "npm run build"
+  }
+}
