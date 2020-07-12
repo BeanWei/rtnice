@@ -79,16 +79,44 @@ export function nodeInsertStyles (input, styleConfigs) {
   }
   Object.keys(styleConfigs).forEach(function(cssSelector) {
     var style = styleConfigs[cssSelector]
-    var els = node.querySelectorAll(cssSelector)
-    if (els.length) {
-      els.forEach((el) => {
-        var elStyle = el.getAttribute('style') || ""
-        if (elStyle != "" && !elStyle.endsWith(';')) {
-          elStyle += ";"
-        }
-        elStyle += style
-        el.setAttribute('style', elStyle)
-      })
+    var els
+    if (cssSelector.endsWith(':before')) {
+      cssSelector = cssSelector.split(':before')
+      cssSelector.pop()
+      cssSelector = cssSelector.join('')
+      els = node.querySelectorAll(cssSelector)
+      if (els.length) {
+        els.forEach((el) => {
+          var childSpan = document.createElement('span')
+          childSpan.setAttribute('style', style) 
+          childSpan.appendChild(el)
+          el.parentNode.replaceChild(childSpan, el)
+        })
+      }
+    } else if (cssSelector.endsWith(':after')) {
+      cssSelector = cssSelector.split(':after')
+      cssSelector.pop()
+      cssSelector = cssSelector.join('')
+      els = node.querySelectorAll(cssSelector)
+      if (els.length) {
+        els.forEach((el) => {
+          var childSpan = document.createElement('span')
+          childSpan.setAttribute('style', style) 
+          el.appendChild(childSpan)
+        })
+      }
+    } else {
+      els = node.querySelectorAll(cssSelector)
+      if (els.length) {
+        els.forEach((el) => {
+          var elStyle = el.getAttribute('style') || ""
+          if (elStyle != "" && !elStyle.endsWith(';')) {
+            elStyle += ";"
+          }
+          elStyle += style
+          el.setAttribute('style', elStyle)
+        })
+      }
     }
   });
   return node.outerHTML
