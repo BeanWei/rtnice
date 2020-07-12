@@ -22,11 +22,7 @@ replacements.heading = {
   filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
   replacement: function (content, node, options) {
-    return `<${node.nodeName.toLowerCase()}>
-      <span class="prefix"></span>
-      <span class="content">${content}</span>
-      <span class="suffix"></span>
-    </${node.nodeName.toLowerCase()}>`
+    return `<${node.nodeName.toLowerCase()}><span class="prefix"></span><span class="content">${content}</span><span class="suffix"></span></${node.nodeName.toLowerCase()}>`
   }
 }
 
