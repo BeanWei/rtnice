@@ -1,5 +1,3 @@
-import { findStyleConfig } from "./utilities"
-
 var replacements = {}
 
 replacements.media = {
@@ -13,11 +11,9 @@ replacements.media = {
         node.removeAttribute('width')
         node.removeAttribute('height')
         var preEl = document.createElement('figure')
-        preEl.setAttribute("style", options.rtNiceStylesheets.figure)
         preEl.appendChild(node)
         node = preEl.childNodes[0]
     }
-    node.setAttribute('style', findStyleConfig(node, options.rtNiceStylesheets))
     return preEl ? preEl.outerHTML : node.outerHTML
   }
 }
@@ -34,7 +30,7 @@ replacements.list = {
   filter: ['ol'],
 
   replacement: function (content, node, options) {
-    return `<ol start="${node.getAttribute('start')}" style="${findStyleConfig(node, options.rtNiceStylesheets)}">${content}</ol>`
+    return `<ol start="${node.getAttribute('start')}">${content}</ol>`
   }
 }
 

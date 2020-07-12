@@ -66,17 +66,30 @@ function has (node, tagNames) {
   )
 }
 
-export function findStyleConfig (node, styleConfigs, findDeep=3) {
-  var elStyle = "",
-    elTagkey = ""
-  while (findDeep && node) {
-    var elTag = node.nodeName ? node.nodeName.toLowerCase() : null
-    if (elTag) {
-      elTagkey = elTagkey === "" ? elTag : elTag + " " + elTagkey
-      elStyle += styleConfigs[elTagkey] || ''
-    }
-    node = node.parentNode
-    findDeep--;
+export function nodeInsertStyles (input, styleConfigs) {
+  var node
+  if (typeof input === 'string') {
+    var doc = new HTMLParser().parseFromString(
+      `<section id="rtnice" data-tool="RichTextNice" style="${styleConfigs['#rtnice']}" data-website="https://github.com/BeanWei/rtnice">` + input + '</section>',
+      'text/html'
+    )
+    node = doc.getElementById('rtnice')
+  } else {
+    node = input.cloneNode(true)
   }
-  return elStyle
+  Object.keys(styleConfigs).forEach(function(cssSelector) {
+    var style = styleConfigs[cssSelector]
+    var els = node.querySelectorAll(cssSelector)
+    if (els.length) {
+      els.forEach((el) => {
+        var elStyle = el.getAttribute('style') || ""
+        if (elStyle != "" && !elStyle.endsWith(';')) {
+          elStyle += ";"
+        }
+        elStyle += style
+        el.setAttribute('style', elStyle)
+      })
+    }
+  });
+  return node.outerHTML
 }
