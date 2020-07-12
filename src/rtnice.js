@@ -5,8 +5,6 @@ import { extend, nodeInsertStyles } from "./utilities"
 import RootNode from './root-node'
 import Node from './node'
 var reduce = Array.prototype.reduce
-var leadingNewLinesRegExp = /^\n*/
-var trailingNewLinesRegExp = /\n*$/
 
 
 export default function RichTextNiceService (options) {
@@ -92,7 +90,7 @@ function process (parentNode) {
       // console.log(node.nodeType, node, node.innerHTML, node.outerHTML)
     }
 
-    return join(output, replacement)
+    return output + replacement
   }, '')
 }
 
@@ -117,34 +115,6 @@ function replacementForNode (node) {
     rule.replacement(content, node, this.options) +
     whitespace.trailing
   )
-}
-
-/**
- * Determines the new lines between the current output and the replacement
- * @private
- * @param {String} output The current conversion output
- * @param {String} replacement The string to append to the output
- * @returns The whitespace to separate the current output and the replacement
- * @type String
- */
-
-function separatingNewlines (output, replacement) {
-  var newlines = [
-    output.match(trailingNewLinesRegExp)[0],
-    replacement.match(leadingNewLinesRegExp)[0]
-  ].sort()
-  var maxNewlines = newlines[newlines.length - 1]
-  return maxNewlines.length < 2 ? maxNewlines : '\n\n'
-}
-
-function join (string1, string2) {
-  var separator = separatingNewlines(string1, string2)
-
-  // Remove trailing/leading newlines and replace with separator
-  string1 = string1.replace(trailingNewLinesRegExp, '')
-  string2 = string2.replace(leadingNewLinesRegExp, '')
-
-  return string1 + separator + string2
 }
 
 /**
