@@ -62,4 +62,14 @@ cssTemplates.basic = {
     'figure a + figcaption': `display: flex; justify-content: center; align-items: center; width: 100%; margin-top: -35px; background: rgba(0,0,0,0.7); color: white; line-height: 35px; z-index: 20;`,
 }
 
+cssTemplates.orange = {
+    'a': `text-decoration: none; color: rgb(239, 112, 96); word-wrap: break-word; font-weight: bold; border-bottom: 1px solid rgb(239, 112, 96);`,
+    'h2': `border-bottom: 2px solid rgb(239, 112, 96); font-size: 1.3em; margin-top: 30px; margin-bottom: 15px; padding: 0px; font-weight: bold; color: black;`,
+    'h2 .content': `display: inline-block; font-weight: bold; background: rgb(239, 112, 96); color: #ffffff; padding: 3px 10px 1px; border-top-right-radius: 3px; border-top-left-radius: 3px; margin-right: 3px;`,
+    'h2:after': `display: inline-block; content: " "; vertical-align: bottom; border-bottom: 36px solid #efebe9; border-right: 20px solid transparent;`,
+    'blockquote': `display: block; font-size: 0.9em; overflow: auto; overflow-scrolling: touch; border-left: 3px solid rgb(239, 112, 96); background: #fff9f9; color: #6a737d; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 10px; margin-bottom: 20px; margin-top: 20px;`,
+    'p code': `font-size: 14px; word-wrap: break-word; padding: 2px 4px; border-radius: 4px; margin: 0 2px; color: rgb(239, 112, 96); background-color: rgba(27,31,35,.05); font-family: Operator Mono, Consolas, Monaco, Menlo, monospace; word-break: break-all;`,
+    'li code': `font-size: 14px; word-wrap: break-word; padding: 2px 4px; border-radius: 4px; margin: 0 2px; color: rgb(239, 112, 96); background-color: rgba(27,31,35,.05); font-family: Operator Mono, Consolas, Monaco, Menlo, monospace; word-break: break-all;`,
+}
+
 export default cssTemplates

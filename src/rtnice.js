@@ -14,7 +14,7 @@ export default function RichTextNiceService (options) {
 
   var defaults = {
     rules: REPLACEMENTS,
-    cssTpName: 'basic',
+    theme: 'basic',
     rtNiceStylesheets: cssTemplates.basic,
     blankReplacement: function (content, node) {
       return ''
@@ -29,8 +29,8 @@ export default function RichTextNiceService (options) {
   }
   this.options = extend({}, defaults, options)
 
-  if (this.options.cssTpName != defaults.cssTpName) {
-    this.options.rtNiceStylesheets = extend({}, defaults.rtNiceStylesheets, cssTemplates[this.options.cssTpName])
+  if (this.options.theme != defaults.theme) {
+    this.options.rtNiceStylesheets = extend({}, defaults.rtNiceStylesheets, cssTemplates[this.options.theme])
   }
 
   this.rules = new Rules(this.options)
