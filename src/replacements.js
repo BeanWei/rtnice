@@ -46,13 +46,4 @@ replacements.list = {
   }
 }
 
-// rules.listItem = {
-//   filter: 'li',
-
-//   replacement: function (content, node, options) {
-   
-//   }
-// }
-
-
 export default replacements
