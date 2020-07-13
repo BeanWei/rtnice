@@ -74,20 +74,9 @@ function process (parentNode) {
 
     var replacement = ''
     if (node.nodeType === 3) {
-      // console.log(node, node.parentNode, node.parentNode.nodeName)
-      if (node.isCode) {
-        replacement = `<pre><code>${node.nodeValue}</code></pre>`
-      } else if (node.parentNode && node.parentNode.nodeName === "X-RTNICE") {
-        replacement = `<p>${node.nodeValue}</p>`
-      } else {
-        replacement = node.nodeValue
-      }
-    }
-    
-    if (replacement === '' && node.nodeType === 1) {
-      replacement = replacementForNode.call(self, node)
-    } else {
-      // console.log(node.nodeType, node, node.innerHTML, node.outerHTML)
+      replacement = node.parentNode && node.parentNode.nodeName === "X-RTNICE" ? `<p>${node.nodeValue}</p>` : node.nodeValue
+    } else if (node.nodeType === 1) {
+        replacement = replacementForNode.call(self, node)
     }
 
     return output + replacement

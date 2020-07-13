@@ -42,4 +42,39 @@ replacements.list = {
   }
 }
 
+replacements.codeBlock = {
+  filter: function (node) {
+    return (
+      node.nodeName === 'PRE' &&
+      node.firstChild &&
+      node.firstChild.nodeName === 'CODE'
+    )
+  },
+
+  replacement: function(content, node, options) {
+    var codeText = node.firstChild.textContent
+    if (!codeText.trim()) return ''
+    var lines = codeText.split("\n")
+    var className = node.firstChild.getAttribute('class') || ''
+    var language = (className.match(/language-(\S+)/) || [null, ''])[1] || className.replace('hljs', '').trim()
+    var codeLines = []
+    var numbers = []
+    for (let i = 0; i < lines.length - 1; i++) {
+      codeLines.push(`<code class="${className}"><span class="code-snippet_outer">` + (lines[i] || "<br>") + "</span></code>");
+      numbers.push("<li></li>");
+    }
+    return (
+      '<section class="code-snippet__fix code-snippet__js">' +
+      '<ul class="code-snippet__line-index code-snippet__js">' +
+      numbers.join("") +
+      "</ul>" +
+      '<pre class="code-snippet__js" data-lang="' +
+      language +
+      '">' +
+      codeLines.join("") +
+      "</pre></section>"
+    )
+  }
+}
+
 export default replacements

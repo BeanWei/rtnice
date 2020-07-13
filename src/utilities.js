@@ -80,28 +80,37 @@ export function nodeInsertStyles (input, styleConfigs) {
   Object.keys(styleConfigs).forEach(function(cssSelector) {
     var style = styleConfigs[cssSelector]
     var els
-    if (cssSelector.endsWith(':before')) {
-      cssSelector = cssSelector.split(':before')
+    if (cssSelector.endsWith('::before')) {
+      cssSelector = cssSelector.split('::before')
       cssSelector.pop()
       cssSelector = cssSelector.join('')
       els = node.querySelectorAll(cssSelector)
       if (els.length) {
-        els.forEach((el) => {
+        els.forEach((el, idx) => {
           var childSpan = document.createElement('span')
-          childSpan.setAttribute('style', style) 
-          childSpan.appendChild(el)
+          childSpan.setAttribute('style', style)
+          // TODO: may have better way
+          if (style.includes('counter-increment')) {
+            idxText = document.createTextNode(String(idx + 1))
+            childSpan.appendChild(idxText)
+          }
           el.parentNode.replaceChild(childSpan, el)
+          childSpan.appendChild(el)
         })
       }
-    } else if (cssSelector.endsWith(':after')) {
-      cssSelector = cssSelector.split(':after')
+    } else if (cssSelector.endsWith('::after')) {
+      cssSelector = cssSelector.split('::after')
       cssSelector.pop()
       cssSelector = cssSelector.join('')
       els = node.querySelectorAll(cssSelector)
       if (els.length) {
-        els.forEach((el) => {
+        els.forEach((el, idx) => {
           var childSpan = document.createElement('span')
-          childSpan.setAttribute('style', style) 
+          childSpan.setAttribute('style', style)
+          // TODO: may have better way
+          if (style.includes('counter-increment')) {
+            childSpan.appendChild(document.createTextNode(String(idx + 1)))
+          }
           el.appendChild(childSpan)
         })
       }
