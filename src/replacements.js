@@ -61,7 +61,7 @@ replacements.codeBlock = {
     var numbers = []
     for (let i = 0; i < lines.length - 1; i++) {
       codeLines.push(`<code class="${className}"><span class="code-snippet_outer">` + (lines[i] || "<br>") + "</span></code>");
-      numbers.push("<li></li>");
+      numbers.push(`<li>${i+1}</li>`);
     }
     return (
       '<section class="code-snippet__fix code-snippet__js">' +

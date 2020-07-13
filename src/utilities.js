@@ -86,14 +86,9 @@ export function nodeInsertStyles (input, styleConfigs) {
       cssSelector = cssSelector.join('')
       els = node.querySelectorAll(cssSelector)
       if (els.length) {
-        els.forEach((el, idx) => {
+        els.forEach((el) => {
           var childSpan = document.createElement('span')
           childSpan.setAttribute('style', style)
-          // TODO: may have better way
-          if (style.includes('counter-increment')) {
-            idxText = document.createTextNode(String(idx + 1))
-            childSpan.appendChild(idxText)
-          }
           el.parentNode.replaceChild(childSpan, el)
           childSpan.appendChild(el)
         })
@@ -104,13 +99,9 @@ export function nodeInsertStyles (input, styleConfigs) {
       cssSelector = cssSelector.join('')
       els = node.querySelectorAll(cssSelector)
       if (els.length) {
-        els.forEach((el, idx) => {
+        els.forEach((el) => {
           var childSpan = document.createElement('span')
           childSpan.setAttribute('style', style)
-          // TODO: may have better way
-          if (style.includes('counter-increment')) {
-            childSpan.appendChild(document.createTextNode(String(idx + 1)))
-          }
           el.appendChild(childSpan)
         })
       }
