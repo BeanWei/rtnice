@@ -64,11 +64,11 @@ replacements.codeBlock = {
       numbers.push(`<li>${i+1}</li>`);
     }
     return (
-      '<section class="code-snippet__fix code-snippet__js">' +
-      '<ul class="code-snippet__line-index code-snippet__js">' +
+      '<section class="code-snippet_fix code-snippet_js">' +
+      '<ul class="code-snippet_line-index code-snippet_js">' +
       numbers.join("") +
       "</ul>" +
-      '<pre class="code-snippet__js" data-lang="' +
+      '<pre class="code-snippet_js" data-lang="' +
       language +
       '">' +
       codeLines.join("") +
